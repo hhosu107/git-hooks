@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Check if black is installed for Python
+if command -v black &> /dev/null; then
+    black .
+fi
+
+# Check if gofmt is installed for Go
+if command -v gofmt &> /dev/null; then
+    gofmt -w .
+fi
+
+# Check if golangci-lint is installed for Go
+if command -v golangci-lint &> /dev/null; then
+    golangci-lint run
+fi
+
+# Check if clang-format is installed for C/C++
+if command -v clang-format &> /dev/null; then
+    clang-format -i -style=file $(git diff --name-only --cached --diff-filter=ACM | grep -E '\.(c|cpp|h)$')
+fi
+
+# Check if rustfmt is installed for Rust
+if command -v rustfmt &> /dev/null; then
+    cargo fmt
+fi
+
+# Check if clippy is installed for Rust
+if command -v cargo-clippy &> /dev/null; then
+    cargo clippy
+fi
